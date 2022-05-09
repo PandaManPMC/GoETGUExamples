@@ -1,0 +1,18 @@
+syntax = "proto3";	// 指定 protobuf 版本
+option go_package = "./example1";	// golang 需要配置的包名
+option java_package = "example1.grpc.pb";	// 生成的java的包名
+package example1;	// 包名避免消息类型之间冲突
+
+message IdentityInfo{	// 消息类型
+	int64 id = 1;	//	定义字段，赋值(=1) 是使用数字标识的编号。
+	string name = 2;
+}
+
+message IdentityInfoId{
+	int64 id = 1;
+}
+
+service IdentityInfoService{	// 服务定义
+	rpc addIdentityInfo(IdentityInfo) returns(IdentityInfoId); // 远程方法
+	rpc getInfo(IdentityInfoId) returns(IdentityInfo);
+}
